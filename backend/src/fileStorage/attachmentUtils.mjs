@@ -1,10 +1,10 @@
 import AWS from 'aws-sdk';
 import AWSXRay from 'aws-xray-sdk';
 
-const s3Bucket = process.env.IMAGES_S3_BUCKET;
+const s3Bucket = process.env.S3_BUCKET;
 const urlExpiration = +process.env.SIGNED_URL_EXPIRATION;
 
-export class AttachmentS3 {
+export class AttachmentUtils  {
 
     buildAttachmentUrl(todoId) {
         return `https://${s3Bucket}.s3.amazonaws.com/${todoId}`;

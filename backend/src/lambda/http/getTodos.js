@@ -15,7 +15,6 @@ export const handler = middy()
     })
   )
   .handler(async (event) => {
-    logger.info('---getTodos event http---');
     const userId = getUserId(event);
     const todos = await getTodos(userId);
 

@@ -15,7 +15,6 @@ export const handler = middy()
     })
   )
   .handler(async (event) => {
-    logger.info('---createAttachmentPresignedUrl event http---');
     const todoId = event.pathParameters.todoId;
 
     // TODO: Return a presigned URL to upload a file for a TODO item with the provided id

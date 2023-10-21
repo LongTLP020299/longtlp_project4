@@ -1,27 +1,23 @@
 import { createLogger } from '../utils/logger.mjs';
 import { TodosAccess } from '../dataLayer/todos.mjs';
 import { uuid } from 'uuidv4';
-import { AttachmentS3 } from '../utils/s3Attachment.mjs';
+import { AttachmentUtils } from '../fileStorage/attachmentUtils.mjs';
 
 const logger = createLogger('businessLogic');
 
 const todosAccess = new TodosAccess();
-const attachmentS3 = new AttachmentS3();
+const attachmentUtils = new AttachmentUtils();
 
-//gets item for user
 export async function getTodos(userId) {
-    logger.info('---getTodos event Business---');
-
     return todosAccess.getTodos(userId);
 }
 
-//create item  
 export async function createTodo(newTodo, userId) {
-    logger.info('---CreateTodo event Business---');
+    logger.info('CreateTodo function');
 
     const todoId = uuid();
     const createdAt = new Date().toISOString();
-    const attachmentUrl = attachmentS3.buildAttachmentUrl(todoId);
+    const attachmentUrl = attachmentUtils.buildAttachmentUrl(todoId);
     const newItem = {
         userId,
         todoId,
@@ -34,23 +30,14 @@ export async function createTodo(newTodo, userId) {
     return await todosAccess.createTodo(newItem);
 }
 
-//update item
 export async function updateTodo(userId, todoId, todoUpdate) {
-    logger.info('---updateTodo event Business---');
-
     return await todosAccess.updateTodo(userId, todoId, todoUpdate);
 }
 
-//delete item 
 export async function deleteTodo(todoId, userId) {
-    logger.info('---deleteTodo event Business---');
-
     return await todosAccess.deleteTodo(todoId, userId);
 }
 
-//generate upload url 
 export async function createAttachmentPresignedUrl(todoId) {
-    logger.info('---createAttachmentPresignedUrl event Business---');
-
-    return await attachmentS3.getUploadUrl(todoId);
+    return await attachmentUtils.getUploadUrl(todoId);
 }

@@ -15,7 +15,6 @@ export const handler = middy()
     })
   )
   .handler(async (event) => {
-    logger.info('---deleteTodo event http---');
 
     const todoId = event.pathParameters.todoId;
     const userId = getUserId(event);

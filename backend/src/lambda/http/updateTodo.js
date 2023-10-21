@@ -15,12 +15,10 @@ export const handler = middy()
     })
   )
   .handler(async (event) => {
-    logger.info('---updateTodo event http---');
 
     const todoId = event.pathParameters.todoId;
     const updatedTodo = JSON.parse(event.body);
     const userId = getUserId(event);
-
     await updateTodo(userId, todoId, updatedTodo);
 
     return {

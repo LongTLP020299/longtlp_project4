@@ -43,24 +43,20 @@ export async function handler(event) {
 }
 
 async function verifyToken(authHeader) {
-  logger.info('verifyingToken')
   const token = getToken(authHeader)
   const jwt = jsonwebtoken.decode(token, { complete: true })
 
   // TODO: Implement token verification
   const response = await Axios.get(jwksUrl)
   const keys = response.data.keys
-  const signingKeys = keys.find(key => key.kid === jwt.header.kid)
-  logger.info('signingKeys', signingKeys)
+  const key = keys.find(k => k.kid === jwt.header.kid)
 
-  if (!signingKeys) {
-    throw new Error('The JWKS endpoints did not contain any keys')
+  if (!key) {
+    throw new Error('Error key!')
   }
 
-  // get pem  data
-  const pemData = signingKeys.x5c[0]
+  const pemData = key.x5c[0]
 
-  // convert pem data to cert
   const cert = `-----BEGIN CERTIFICATE-----\n${pemData}\n-----END CERTIFICATE-----`
 
   // verify token
