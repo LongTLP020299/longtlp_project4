@@ -1,10 +1,10 @@
-import Axios from 'axios'
-import jsonwebtoken from 'jsonwebtoken'
-import { createLogger } from '../../utils/logger.mjs'
+import Axios from 'axios';
+import jsonwebtoken from 'jsonwebtoken';
+import { createLogger } from '../../utils/logger.mjs';
 
-const logger = createLogger('auth')
+const logger = createLogger('auth');
 
-const jwksUrl = 'https://test-endpoint.auth0.com/.well-known/jwks.json'
+const jwksUrl = 'https://dev-i15kpqu4qgmdvk06.us.auth0.com/.well-known/jwks.json';
 
 export async function handler(event) {
   try {
@@ -47,7 +47,23 @@ async function verifyToken(authHeader) {
   const jwt = jsonwebtoken.decode(token, { complete: true })
 
   // TODO: Implement token verification
-  return undefined;
+  const response = await Axios.get(jwksUrl)
+  const keys = response.data.keys
+  const key = keys.find(k => k.kid === jwt.header.kid)
+
+  if (!key) {
+    throw new Error('Error key!')
+  }
+
+  const pemData = key.x5c[0]
+
+  const cert = `-----BEGIN CERTIFICATE-----\n${pemData}\n-----END CERTIFICATE-----`
+
+  // verify token
+  const verifiedToken = jsonwebtoken.verify(token, cert, { algorithms: ['RS256'] })
+  logger.info('verifiedToken', verifiedToken)
+
+  return verifiedToken
 }
 
 function getToken(authHeader) {
