@@ -1,19 +1,17 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "group",
+    "title": "create model",
     "type": "object",
     "properties": {
       "name": {
         "type": "string",
-        "minLength": 1
+        "minLength": 2,
+        "maxLength": 200
       },
       "dueDate": {
         "type": "string"
       }
     },
-    "required": [
-      "name",
-      "dueDate"
-    ],
+    "required": ["name", "dueDate"],
     "additionalProperties": false
   }

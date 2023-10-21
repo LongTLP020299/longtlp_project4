@@ -1,34 +1,38 @@
 {
   "name": "serverless-todo-app",
   "version": "1.0.0",
+  "type": "module",
   "description": "Serverless TODO image app",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ivan Mushketyk",
+  "license": "ISC",
   "dependencies": {
-    "@types/axios": "^0.14.0",
-    "@types/http-errors": "^1.8.2",
-    "aws-xray-sdk": "^2.5.0",
-    "axios": "^1.4.0",
-    "http-errors": "^1.8.1",
-    "jsonwebtoken": "^9.0.1",
-    "middy": "^0.27.1",
-    "source-map-support": "^0.5.21",
-    "uuid": "^3.4.0",
-    "winston": "^3.10.0"
+    "@aws-sdk/client-dynamodb": "^3.214.0",
+    "@aws-sdk/client-s3": "^3.213.0",
+    "@aws-sdk/lib-dynamodb": "^3.214.0",
+    "@aws-sdk/s3-request-presigner": "^3.213.0",
+    "@middy/core": "^3.6.2",
+    "@middy/http-cors": "^3.6.2",
+    "@middy/http-error-handler": "^3.6.2",
+    "aws-sdk": "^2.1475.0",
+    "aws-xray-sdk": "^3.5.2",
+    "aws-xray-sdk-core": "^3.4.0",
+    "axios": "^1.1.3",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "serverless": "^3.35.2",
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "uuid": "^9.0.0",
+    "uuidv4": "^6.2.13",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.119",
-    "@types/jsonwebtoken": "^8.5.9",
-    "@types/node": "^10.17.60",
-    "aws-sdk": "^2.1425.0",
     "serverless-aws-documentation": "^1.1.0",
-    "serverless-iam-roles-per-function": "^3.2.0-e97ab49",
-    "serverless-plugin-canary-deployments": "^0.4.8",
-    "serverless-plugin-tracing": "^2.0.0",
-    "serverless-reqvalidator-plugin": "^1.0.4",
-    "serverless-webpack": "^5.13.0",
-    "ts-loader": "^9.5.0",
-    "typescript": ">=3.8.0",
-    "webpack": "^5.88.2"
-  },
-  "author": "Ivan Mushketyk",
-  "license": "MIT"
+    "serverless-reqvalidator-plugin": "^3.1.0",
+    "typescript": "^5.2.2"
+  }
 }
